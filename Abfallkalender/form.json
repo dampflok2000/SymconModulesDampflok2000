@@ -15,7 +15,7 @@
         {"type": "Label", "label": "Specification of the hour for the update timer"},
         {"type": "IntervalBox", "name": "IntervalUpdateTimer", "caption": "Hour"},
         {"type": "IntervalBox", "name": "IntervalUpdateTimerMinute", "caption": "Minute"},
-        {"type": "Label", "label": "Angabe der Stunde für Notification-Timer"},
+        {"type": "Label", "label": "Specification of the hour for the notification timer"},
         {"type": "IntervalBox", "name": "IntervalNotificationTimer", "caption": "Hour"},
         {"type": "IntervalBox", "name": "IntervalNotificationTimerMinute", "caption": "Minute"},
         {"type": "NumberSpinner", "name": "TableFontSize", "caption": "HTML font size", "minimum": 0, "maximum": 24}

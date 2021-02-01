@@ -15,6 +15,7 @@
             "E-Mail notification:": "E-Mail-Benachrichtigung",
             "ID for E-Mail notification:": "ID für E-Mail-Benachrichtigung",
             "Specification of the hour for the update timer": "Angabe der Stunde für Update-Timer",
+            "Specification of the hour for the notification timer": "Angabe der Stunde für Notification-Timer",
             "Hour": "Stunde",
             "Minute": "Minute",
             "HTML font size": "HTML-Schriftgröße",
