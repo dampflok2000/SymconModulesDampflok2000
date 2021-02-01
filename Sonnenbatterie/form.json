@@ -1,0 +1,33 @@
+{
+    "elements":
+    [
+        {
+            "type": "ExpansionPanel",
+            "caption": "Basis-Konfiguration:",
+            "expanded": true,
+            "items": [
+                {"type": "Label", "label": "IP-Adresse der Sonenbatterie:"},
+                { "type": "ValidationTextBox", "name": "IPAddress", "caption": "IP-Adresse/Hostname" },
+                {"type": "Label", "label": "Aktualisierungsintervall in Sekunden:"},
+                {"type": "IntervalBox", "name": "IntervalUpdateTimerSeconds", "caption": "Sek."}
+            ]
+        },
+        {
+            "type": "ExpansionPanel",
+            "caption": "Zu erstellende Variablen:",
+            "items": [
+                { "type": "CheckBox", "name": "USOC", "caption": "Ladezustand", "value": true },
+                { "type": "CheckBox", "name": "Consumption", "caption": "Gesamtverbrauch", "value": true }
+            ]
+        }
+    ],
+    "actions":
+    [
+        {"type": "Button", "label": "Daten holen", "onClick": "SOB_GetData($id);"}
+    ],
+    "status":
+    [
+        {"code": 102, "icon": "active", "caption": "Successfully got data from the Sonnenbatterie."},
+        {"code": 230, "icon": "error", "caption": "Cannot get data from the Sonnenbatterie!"}
+    ]
+}

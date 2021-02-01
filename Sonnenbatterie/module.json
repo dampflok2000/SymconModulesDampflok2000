@@ -1,0 +1,14 @@
+{
+    "id": "{FB90D098-E9E3-412A-9EB2-8737472164F9}",
+    "name": "Sonnenbatterie",
+    "type": 3,
+    "vendor": "",
+    "aliases":
+    [
+        "Sonnenbatterie"
+    ],  
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "SOB"
+}

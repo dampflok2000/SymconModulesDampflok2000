@@ -1,0 +1,14 @@
+{
+    "id": "{5770FE17-4961-45E9-ABFD-1062D08D2021}",
+    "name": "AlarmSystem",
+    "type": 3,
+    "vendor": "",
+    "aliases":
+    [
+        "AlarmSystem"
+    ],  
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "ALS"
+}

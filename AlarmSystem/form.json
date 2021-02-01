@@ -1,0 +1,181 @@
+{
+  "elements":
+  [
+    {
+      "type": "ExpansionPanel",
+      "caption": "Sensors for Internal Zone",
+      "items": [
+      {
+        "type": "List",
+        "name": "SensorsINT",
+        "caption": "Sensorvariables Internal",
+        "rowCount": 5,
+        "add": true,
+        "delete": true,
+        "sort": {
+          "column": "ID",
+          "direction": "ascending"
+        },
+        "columns": [{
+          "name" : "ID",
+          "label" : "ID",
+          "width" : "auto",
+          "add": 0,
+          "edit": {
+            "type": "SelectVariable"
+          }
+        }, {
+          "name" : "Name",
+          "label" : "Name",
+          "width" : "auto",
+          "add": ""
+        }, {
+          "name" : "Status",
+          "label" : "Status",
+          "width" : "120",
+          "add": ""
+        }],
+      "values": [
+      ]
+      } 
+    ]
+  },
+    {
+    "type": "ExpansionPanel",
+    "caption": "Sensors for External Zone",
+    "items": [
+    {
+      "type": "List",
+      "name": "SensorsEXT",
+      "caption": "Sensorvariables External",
+      "rowCount": 5,
+      "add": true,
+      "delete": true,
+      "sort": {
+        "column": "ID",
+        "direction": "ascending"
+      },
+      "columns": [{
+        "name" : "ID",
+        "label" : "ID",
+        "width" : "auto",
+        "add": 0,
+        "edit": {
+          "type": "SelectVariable"
+        }
+      }, {
+        "name" : "Name",
+        "label" : "Name",
+        "width" : "auto",
+        "add": ""
+      }, {
+        "name" : "Status",
+        "label" : "Status",
+        "width" : "120",
+        "add": ""
+      }],
+      "values": [
+      ]
+    }]},
+    {
+      "type": "ExpansionPanel",
+      "caption": "Smoke Detectors",
+      "items": [
+    {
+      "type": "List",
+      "name": "SensorsSMOKE",
+      "caption": "Sensorvariables Smoke Detectors",
+      "rowCount": 5,
+      "add": true,
+      "delete": true,
+      "sort": {
+        "column": "ID",
+        "direction": "ascending"
+      },
+      "columns": [{
+        "name" : "ID",
+        "label" : "ID",
+        "width" : "auto",
+        "add": 0,
+        "edit": {
+          "type": "SelectVariable"
+        }
+      }, {
+        "name" : "Name",
+        "label" : "Name",
+        "width" : "auto",
+        "add": ""
+      }, {
+        "name" : "Status",
+        "label" : "Status",
+        "width" : "120",
+        "add": ""
+      }],
+      "values": [
+      ]
+    }]},
+    {
+      "type": "ExpansionPanel",
+      "caption": "Variables triggered after alarm",
+      "items": [
+    { "type": "Label", "label": "Add/Delete target variables, which react on the alarm" },
+    {
+      "type": "List",
+      "name": "Targets",
+      "caption": "Targetvariables",
+      "rowCount": 5,
+      "add": true,
+      "delete": true,
+      "sort": {
+        "column": "ID",
+        "direction": "ascending"
+      },
+      "columns": [{
+        "name" : "ID",
+        "label" : "ID",
+        "width" : "auto",
+        "add": 0,
+        "edit": {
+          "type": "SelectVariable"
+        }
+      }, {
+        "name" : "Name",
+        "label" : "Name",
+        "width" : "auto",
+        "add": ""
+      }, {
+        "name" : "Status",
+        "label" : "Status",
+        "width" : "auto",
+        "add": ""
+      }],
+      "values": [
+      ]
+    }]},
+    {"type": "ExpansionPanel",
+      "caption": "Delayed Script",
+      "items": [
+        {"type": "RowLayout",
+          "items": [
+                {"type":"SelectScript", "name":"AlarmDelayScriptID", "caption":"Script, welches nach x Sekunden ausgeführt wird"},
+                {"type":"Label", "caption": "Folgende Werte werden an das Script übergeben:\n\"Status\", \"SourceID\", \"WaitTimeSec\""}
+              ]
+            },
+        {"type":"NumberSpinner", "name":"AlarmDelaySeconds", "caption": "Warte Anzahl x Sekunden"}
+      ]
+    },
+    {"type": "Label", "label": "Push Notification:"},
+    {"type": "SelectInstance", "name": "PushInstanceID", "caption": "ID für Push Notifications"}
+],
+  "actions":
+  [
+      
+  ],
+  "status":
+  [
+      {"code": 101, "icon": "active", "caption": "Modul ist funktionsfähig."},
+      {"code": 102, "icon": "active", "caption": "Modul ist funktionsfähig"},
+      {"code": 201, "icon": "error", "caption": "Mindestens eine Termin-Variable ist leer. Bitte diese in den Instance-Settings deaktivieren!"},
+      {"code": 202, "icon": "error", "caption": "Die Angabe der Stunde für die Timer müssen im Bereich zwischen 0-23 gesetzt sein!"}
+  ]
+}
