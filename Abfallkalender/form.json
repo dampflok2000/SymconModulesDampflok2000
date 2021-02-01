@@ -1,0 +1,35 @@
+{
+    "elements":
+    [
+        {"type": "Label", "label": "Select garbage type:" },
+        {"type": "CheckBox", "name": "cbxGS", "caption": "Yellow bag" },
+        {"type": "CheckBox", "name": "cbxHM", "caption": "Household garbage"},
+        {"type": "CheckBox", "name": "cbxPP", "caption": "Cardboard bin"},
+        {"type": "CheckBox", "name": "cbxBO", "caption": "Organic waste"},
+
+        {"type": "Label", "label": "Push Notification:"},
+        {"type": "SelectInstance", "name": "PushInstanceID", "caption": "ID for push notifications"},
+        {"type": "Label", "label": "E-Mail notification:"},
+        {"type": "SelectInstance", "name": "MailInstanceID", "caption": "ID for E-Mail notification:"},
+
+        {"type": "Label", "label": "Specification of the hour for the update timer"},
+        {"type": "IntervalBox", "name": "IntervalUpdateTimer", "caption": "Hour"},
+        {"type": "IntervalBox", "name": "IntervalUpdateTimerMinute", "caption": "Minute"},
+        {"type": "Label", "label": "Angabe der Stunde für Notification-Timer"},
+        {"type": "IntervalBox", "name": "IntervalNotificationTimer", "caption": "Hour"},
+        {"type": "IntervalBox", "name": "IntervalNotificationTimerMinute", "caption": "Minute"},
+        {"type": "NumberSpinner", "name": "TableFontSize", "caption": "HTML font size", "minimum": 0, "maximum": 24}
+    ],
+    "actions":
+    [
+        {"type": "Button", "label": "Update Garbage collection appointments", "onClick": "AFK_UpdateWasteTimes($id);"},
+        {"type": "Button", "label": "Set demo data", "onClick": "AFK_SetDemoData($id);"}
+    ],
+    "status":
+    [
+        {"code": 101, "icon": "active", "caption": "Module is functional. It may be necessary to import demo data once"},
+        {"code": 102, "icon": "active", "caption": "Module is functional"},
+        {"code": 201, "icon": "error", "caption": "At least one appointment variable is empty. Please deactivate it in the instance settings!"},
+        {"code": 202, "icon": "error", "caption": "The indication of the hour for the timer must be set in the range between 0-23!"}
+    ]
+}
