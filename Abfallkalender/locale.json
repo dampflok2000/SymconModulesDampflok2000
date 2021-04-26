@@ -1,6 +1,9 @@
 {
     "translations": {
         "de": {
+            "Garbage Types": "Müllarten",
+            "Notifications": "Benachrichtigungen",
+            "HTML Settings": "HTML-Einstellungen",
             "Select garbage type:": "Müllarten auswählen:",
             "Yellow bag": "Gelber Sack",
             "Yellow bag event": "Gelber Sack Termin",
@@ -19,6 +22,10 @@
             "Hour": "Stunde",
             "Minute": "Minute",
             "HTML font size": "HTML-Schriftgröße",
+            "Show day of week in HTML output": "Wochentag in HTML-Output anzeigen",
+            "HTML default font color": "Standardfarbe HTML Output",
+            "HTML pickupday font color for tomorrow": "HTML-Farbe für morgigen Abfuhrtermin",
+            "HTML pickupday font color for today": "HTML-Farbe für heutigen Abfuhrtermin",
             "Update Garbage collection appointments": "Update Abfuhrtermine",
             "Set demo data" :"Demodaten setzen",
             "Module is functional. It may be necessary to import demo data once" :"Modul ist funktionsfähig. GGf. müssen Demodaten einmalig importiert werden",
@@ -40,7 +47,14 @@
             "Demo data were successfully stored.": "Demodaten wurden erfolgreich hinterlegt.",
             "Seconds for next Timer ": "Sekunden bis zum nächsten Timer ",
             "Next milliseconds for timer ": "Millisekunden bis zum nächsten Timer ",
-            " is ": " ist "
+            " is ": " ist ",
+            "Mon": "Mo",
+            "Tue": "Di",
+            "Wed": "Mi",
+            "Thu": "Do",
+            "Fri": "Fr",
+            "Sat": "Sa",
+            "Sun": "So"
         }
     }
 }

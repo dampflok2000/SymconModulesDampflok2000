@@ -27,6 +27,12 @@
             $this->RegisterPropertyInteger("IntervalNotificationTimerMinute", 50);
             $this->RegisterPropertyInteger("TableFontSize", 0);
 
+            //HTML Defaults:
+            $this->RegisterPropertyInteger("selColHtmlDefault", 16777215);
+            $this->RegisterPropertyInteger("selColHtmlPickupDayTomorrow", 16744448);
+            $this->RegisterPropertyInteger("selColHtmlPickupDayToday", 16711680);
+            $this->RegisterPropertyBoolean("cbxHtmlShowDay", false);
+
             //Create timers
             $this->RegisterTimer("UpdateTimer", 0, 'AFK_UpdateWasteTimes('.$this->InstanceID.');');
             $this->RegisterTimer("NotificationTimer", 0, 'AFK_UpdateWasteTimes('.$this->InstanceID.');');
@@ -221,12 +227,19 @@
             
             foreach ($nextTermine as $key => $value)
             {
+                $WasteDayOfWeek = "";
+                $ShowDay = $this->ReadPropertyBoolean("cbxHtmlShowDay");
+                If ($ShowDay) {
+                    $WasteDayOfWeek = $this->Translate($value->format('D'));
+                }
+                
                 $HTMLBox.= "<tr><td>".$key . ":</td><td>";
                 $interval = $value->diff($today);
                 $days = $interval->format('%d');
                 If ($days == 1)
                 {
-                    $HTMLBox.= "<font color=#ff8000>".$this->Translate("TOMORROW")."</b></td></tr>";
+                    $ColorHEX = dechex($this->ReadPropertyInteger("selColHtmlPickupDayTomorrow"));
+                    $HTMLBox.= (($ShowDay) ? ($WasteDayOfWeek."</td><td>") : "") . "<font color=" . $ColorHEX. ">" . $this->Translate("TOMORROW")."</b></td></tr>";
                     If ($PushIsActive)
                     {
                         $this->SendDebug($ModulName, $this->Translate("Push notification is sending now."), 0);
@@ -240,11 +253,13 @@
                 }
                 ElseIf ($days == 0)
                 {
-                    $HTMLBox.= "<font color=#ff0000>".$this->Translate("TODAY")."!</b></td></tr>";
+                    $ColorHEX = dechex($this->ReadPropertyInteger("selColHtmlPickupDayToday"));
+                    $HTMLBox.= (($ShowDay) ? ($WasteDayOfWeek."</td><td>") : "") . "<font color=" . $ColorHEX. ">" . $this->Translate("TODAY")."!</b></td></tr>";
                 }
                 Else
                 {
-                    $HTMLBox.= $value->format('d.m.Y') . "</td></tr>";
+                    $ColorHEX = dechex($this->ReadPropertyInteger("selColHtmlDefault"));
+                    $HTMLBox.= (($ShowDay) ? ($WasteDayOfWeek."</td><td>") : "") . "<font color=" . $ColorHEX. ">" . $value->format('d.m.Y') . "</td></tr>";
                 }
             }
             if ($TableFontSize > 0) {
@@ -269,22 +284,22 @@
             If ($this->ReadPropertyBoolean("cbxGS")) {
                 $varGSID = IPS_GetObjectIDByIdent("YellowBagTimes", $this->InstanceID);
                 SetValueString($varGSID,
-                "04.01.2020\n17.01.2020\n31.01.2020\n14.02.2020\n28.02.2020\n14.03.2020\n28.03.2020\n11.04.2020\n25.04.2020\n09.05.2020\n24.05.2020\n06.06.2020\n20.06.2020\n04.07.2020\n18.07.2020\n01.08.2020\n15.08.2020\n29.08.2020\n12.09.2020\n26.09.2020\n10.10.2020\n24.10.2020\n07.11.2020\n21.11.2020\n05.12.2020\n19.12.2020");
+                "04.01.2021\n17.01.2021\n31.01.2021\n14.02.2021\n28.02.2021\n14.03.2021\n28.03.2021\n11.04.2021\n25.04.2021\n09.05.2021\n24.05.2021\n06.06.2021\n20.06.2021\n04.07.2021\n18.07.2021\n01.08.2021\n15.08.2021\n29.08.2021\n12.09.2021\n26.09.2021\n10.10.2021\n24.10.2021\n07.11.2021\n21.11.2021\n05.12.2021\n19.12.2021");
             }
             If ($this->ReadPropertyBoolean("cbxHM")) {
                 $varHMID = IPS_GetObjectIDByIdent("WasteTimes", $this->InstanceID);
                 $bolVarHM = SetValueString($varHMID,
-                "03.01.2020\n16.01.2020\n30.01.2020\n13.02.2020\n27.02.2020\n13.03.2020\n27.03.2020\n10.04.2020\n24.04.2020\n08.05.2020\n23.05.2020\n05.06.2020\n19.06.2020\n03.07.2020\n17.07.2020\n31.07.2020\n14.08.2020\n28.08.2020\n11.09.2020\n25.09.2020\n09.10.2020\n23.10.2020\n06.11.2020\n20.11.2020\n04.12.2020\n18.12.2020");
+                "03.01.2021\n16.01.2021\n30.01.2021\n13.02.2021\n27.02.2021\n13.03.2021\n27.03.2021\n10.04.2021\n24.04.2021\n08.05.2021\n23.05.2021\n05.06.2021\n19.06.2021\n03.07.2021\n17.07.2021\n31.07.2021\n14.08.2021\n28.08.2021\n11.09.2021\n25.09.2021\n09.10.2021\n23.10.2021\n06.11.2021\n20.11.2021\n04.12.2021\n18.12.2021");
             }
             If ($this->ReadPropertyBoolean("cbxPP")) {
                 $varPPID = IPS_GetObjectIDByIdent("PaperTimes", $this->InstanceID);
                 $bolVarPP = SetValueString($varPPID,
-                "24.01.2020\n21.02.2020\n21.03.2020\n18.04.2020\n16.05.2020\n13.06.2020\n11.07.2020\n08.08.2020\n05.09.2020\n04.10.2020\n01.11.2020\n28.11.2020\n27.12.2020");
+                "24.01.2021\n21.02.2021\n21.03.2021\n18.04.2021\n16.05.2021\n13.06.2021\n11.07.2021\n08.08.2021\n05.09.2021\n04.10.2021\n01.11.2021\n28.11.2021\n27.12.2021");
             }
             If ($this->ReadPropertyBoolean("cbxBO")) {
                 $varBOID = IPS_GetObjectIDByIdent("BioTimes", $this->InstanceID);
                 $bolVarBO = SetValueString($varBOID,
-                "25.01.2020\n22.02.2020\n22.03.2020\n19.04.2020\n17.05.2020\n14.06.2020\n11.07.2020\n09.08.2020\n06.09.2020\n04.10.2020\n01.11.2020\n27.11.2020\n27.12.2020");
+                "25.01.2021\n22.02.2021\n22.03.2021\n19.04.2021\n17.05.2021\n14.06.2021\n11.07.2021\n09.08.2021\n06.09.2021\n04.10.2021\n01.11.2021\n27.11.2021\n27.12.2021");
             }
             echo $this->Translate("Demo data were successfully stored.");
             $this->SetStatus(102);

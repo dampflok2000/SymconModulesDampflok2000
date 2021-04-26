@@ -1,24 +1,44 @@
 {
     "elements":
     [
-        {"type": "Label", "label": "Select garbage type:" },
-        {"type": "CheckBox", "name": "cbxGS", "caption": "Yellow bag" },
-        {"type": "CheckBox", "name": "cbxHM", "caption": "Household garbage"},
-        {"type": "CheckBox", "name": "cbxPP", "caption": "Cardboard bin"},
-        {"type": "CheckBox", "name": "cbxBO", "caption": "Organic waste"},
-
-        {"type": "Label", "label": "Push Notification:"},
-        {"type": "SelectInstance", "name": "PushInstanceID", "caption": "ID for push notifications"},
-        {"type": "Label", "label": "E-Mail notification:"},
-        {"type": "SelectInstance", "name": "MailInstanceID", "caption": "ID for E-Mail notification:"},
-
-        {"type": "Label", "label": "Specification of the hour for the update timer"},
-        {"type": "IntervalBox", "name": "IntervalUpdateTimer", "caption": "Hour"},
-        {"type": "IntervalBox", "name": "IntervalUpdateTimerMinute", "caption": "Minute"},
-        {"type": "Label", "label": "Specification of the hour for the notification timer"},
-        {"type": "IntervalBox", "name": "IntervalNotificationTimer", "caption": "Hour"},
-        {"type": "IntervalBox", "name": "IntervalNotificationTimerMinute", "caption": "Minute"},
-        {"type": "NumberSpinner", "name": "TableFontSize", "caption": "HTML font size", "minimum": 0, "maximum": 24}
+        {
+            "type": "ExpansionPanel", "caption": "Garbage Types",
+            "items": [
+                {"type": "Label", "label": "Select garbage type:" },
+                {"type": "CheckBox", "name": "cbxGS", "caption": "Yellow bag" },
+                {"type": "CheckBox", "name": "cbxHM", "caption": "Household garbage"},
+                {"type": "CheckBox", "name": "cbxPP", "caption": "Cardboard bin"},
+                {"type": "CheckBox", "name": "cbxBO", "caption": "Organic waste"}
+            ]
+        },
+        {
+            "type": "ExpansionPanel", "caption": "Notifications",
+            "items": [
+                {"type": "SelectInstance", "name": "PushInstanceID", "caption": "ID for push notifications"},
+                {"type": "SelectInstance", "name": "MailInstanceID", "caption": "ID for E-Mail notification:"},
+                {"type": "Label", "label": "Specification of the hour for the notification timer"},
+                {"type": "IntervalBox", "name": "IntervalNotificationTimer", "caption": "Hour"},
+                {"type": "IntervalBox", "name": "IntervalNotificationTimerMinute", "caption": "Minute"}
+            ]
+        },        
+        {
+            "type":"ExpansionPanel", "caption":"Update Timer",
+            "items": [
+                {"type": "Label", "label": "Specification of the hour for the update timer"},
+                {"type": "IntervalBox", "name": "IntervalUpdateTimer", "caption": "Hour"},
+                {"type": "IntervalBox", "name": "IntervalUpdateTimerMinute", "caption": "Minute"}
+            ]
+        },
+        {
+            "type":"ExpansionPanel", "caption":"HTML Settings",
+            "items": [
+                {"type":"CheckBox", "name":"cbxHtmlShowDay", "caption":"Show day of week in HTML output"},
+                {"type": "NumberSpinner", "name": "TableFontSize", "caption": "HTML font size", "minimum": 0, "maximum": 24},
+                {"type":"SelectColor", "name":"selColHtmlDefault", "caption":"HTML default font color", "allowTransparent":"False"},
+                {"type":"SelectColor", "name":"selColHtmlPickupDayTomorrow", "caption":"HTML pickupday font color for tomorrow", "allowTransparent":"False"},
+                {"type":"SelectColor", "name":"selColHtmlPickupDayToday", "caption":"HTML pickupday font color for today", "allowTransparent":"False"}
+            ]
+        }
     ],
     "actions":
     [
