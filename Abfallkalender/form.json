@@ -33,17 +33,24 @@
             "type":"ExpansionPanel", "caption":"HTML Settings",
             "items": [
                 {"type":"CheckBox", "name":"cbxHtmlShowDay", "caption":"Show day of week in HTML output"},
+                {"type":"RowLayout", "items":
+                 [
+                   {"type":"CheckBox", "name":"cbxHtmlResetColorToday", "caption":"Reset Today color at the following hour:"},
+                   {"type": "IntervalBox", "name": "IntervalHtmlResetColorTodayTimer", "caption": "Hour"}
+                 ]   
+                },
                 {"type": "NumberSpinner", "name": "TableFontSize", "caption": "HTML font size", "minimum": 0, "maximum": 24},
                 {"type":"SelectColor", "name":"selColHtmlDefault", "caption":"HTML default font color", "allowTransparent":"False"},
                 {"type":"SelectColor", "name":"selColHtmlPickupDayTomorrow", "caption":"HTML pickupday font color for tomorrow", "allowTransparent":"False"},
                 {"type":"SelectColor", "name":"selColHtmlPickupDayToday", "caption":"HTML pickupday font color for today", "allowTransparent":"False"}
+
             ]
         }
     ],
     "actions":
     [
         {"type": "Button", "label": "Update Garbage collection appointments", "onClick": "AFK_UpdateWasteTimes($id);"},
-        {"type": "Button", "label": "Set demo data", "onClick": "AFK_SetDemoData($id);"}
+        {"type": "Button", "label": "Set demo data", "onClick": "AFK_SetDemoData($id, false);"}
     ],
     "status":
     [

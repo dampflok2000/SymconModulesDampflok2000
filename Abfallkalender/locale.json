@@ -47,6 +47,7 @@
             "Demo data were successfully stored.": "Demodaten wurden erfolgreich hinterlegt.",
             "Seconds for next Timer ": "Sekunden bis zum nächsten Timer ",
             "Next milliseconds for timer ": "Millisekunden bis zum nächsten Timer ",
+            "Reset Today color at the following hour:": "Setze Farbe von 'HEUTE'-Terminen zu folgender Stunde zurück:",
             " is ": " ist ",
             "Mon": "Mo",
             "Tue": "Di",

@@ -11,7 +11,7 @@
 		{
 			//Never delete this line!
 			parent::Create();
-
+            
 			$this->RegisterPropertyBoolean("cbxGS", true);
             $this->RegisterPropertyBoolean("cbxHM", true);
             $this->RegisterPropertyBoolean("cbxPP", true);
@@ -24,6 +24,7 @@
             $this->RegisterPropertyInteger("IntervalUpdateTimer", 0);
             $this->RegisterPropertyInteger("IntervalNotificationTimer", 19);
             $this->RegisterPropertyInteger("IntervalUpdateTimerMinute", 1);
+            $this->RegisterPropertyInteger("IntervalHtmlResetColorTodayTimer", 9);
             $this->RegisterPropertyInteger("IntervalNotificationTimerMinute", 50);
             $this->RegisterPropertyInteger("TableFontSize", 0);
 
@@ -32,10 +33,12 @@
             $this->RegisterPropertyInteger("selColHtmlPickupDayTomorrow", 16744448);
             $this->RegisterPropertyInteger("selColHtmlPickupDayToday", 16711680);
             $this->RegisterPropertyBoolean("cbxHtmlShowDay", false);
+            $this->RegisterPropertyBoolean("cbxHtmlResetColorToday", false);
 
             //Create timers
-            $this->RegisterTimer("UpdateTimer", 0, 'AFK_UpdateWasteTimes('.$this->InstanceID.');');
-            $this->RegisterTimer("NotificationTimer", 0, 'AFK_UpdateWasteTimes('.$this->InstanceID.');');
+            $this->RegisterTimer("UpdateTimer", 0, 'AFK_UpdateWasteTimes('.$this->InstanceID.', false);');
+            $this->RegisterTimer("NotificationTimer", 0, 'AFK_UpdateWasteTimes('.$this->InstanceID.', false);');
+            $this->RegisterTimer("ResetFontTimer", 0, 'AFK_UpdateWasteTimes('.$this->InstanceID.', true);');
 		}
 
         public function ApplyChanges() {
@@ -50,6 +53,8 @@
             $HourNotificationTimer = $this->ReadPropertyInteger("IntervalNotificationTimer");
             $MinuteUpdateTimer = $this->ReadPropertyInteger("IntervalUpdateTimerMinute");
             $MinuteNotificationTimer = $this->ReadPropertyInteger("IntervalNotificationTimerMinute");
+            $HourResetTimer = $this->ReadPropertyInteger("IntervalHtmlResetColorTodayTimer");
+            $EnableResetTimer = $this->ReadPropertyBoolean("cbxHtmlResetColorToday");
             
             If ((($HourUpdateTimer > 23) || ($HourNotificationTimer > 23)) || (($HourUpdateTimer < 0) || ($HourNotificationTimer < 0)))
             {
@@ -62,7 +67,10 @@
 
             $this->SetNewTimerInterval($HourUpdateTimer.":".$MinuteUpdateTimer.":17", "UpdateTimer");
             $this->SetNewTimerInterval($HourUpdateTimer.":".$MinuteNotificationTimer.":07", "NotificationTimer");
-
+            If($EnableResetTimer)
+            {
+                $this->SetNewTimerInterval($HourResetTimer.":"."00".":14", "ResetFontTimer");
+            }
             If ($this->ReadPropertyBoolean("cbxGS"))
             {
                 $this->RegisterVariableString("YellowBagTime", $this->Translate("Yellow bag event"));
@@ -116,8 +124,8 @@
             SetValue($this->GetIDForIdent($Ident), $Value);
         }
 
-        //Mülldaten aktualisieren
-        public function UpdateWasteTimes()
+        //refresh waste times
+        public function UpdateWasteTimes($ResetFont = false)
         {
             $this->SetStatus(102);
             $ModulInfo = IPS_GetInstance($this->InstanceID);
@@ -127,6 +135,7 @@
             $HourNotificationTimer = $this->ReadPropertyInteger("IntervalNotificationTimer");
             $MinuteUpdateTimer = $this->ReadPropertyInteger("IntervalUpdateTimerMinute");
             $MinuteNotificationTimer = $this->ReadPropertyInteger("IntervalNotificationTimerMinute");
+            $HourResetTimer = $this->ReadPropertyInteger("IntervalHtmlResetColorTodayTimer");
             $TableFontSize = $this->ReadPropertyInteger("TableFontSize");
 
             $this->SendDebug($ModulName, $this->Translate("Starting updates of waste times.") , 0);
@@ -253,7 +262,7 @@
                 }
                 ElseIf ($days == 0)
                 {
-                    $ColorHEX = dechex($this->ReadPropertyInteger("selColHtmlPickupDayToday"));
+                    $ColorHEX = dechex($this->ReadPropertyInteger((($ResetFont) ? "selColHtmlDefault" : "selColHtmlPickupDayToday")));
                     $HTMLBox.= (($ShowDay) ? ($WasteDayOfWeek."</td><td>") : "") . "<font color=" . $ColorHEX. ">" . $this->Translate("TODAY")."!</b></td></tr>";
                 }
                 Else
