@@ -49,7 +49,7 @@
     ],
     "actions":
     [
-        {"type": "Button", "label": "Update Garbage collection appointments", "onClick": "AFK_UpdateWasteTimes($id);"},
+        {"type": "Button", "label": "Update Garbage collection appointments", "onClick": "AFK_UpdateWasteTimes($id, false);"},
         {"type": "Button", "label": "Set demo data", "onClick": "AFK_SetDemoData($id, false);"}
     ],
     "status":

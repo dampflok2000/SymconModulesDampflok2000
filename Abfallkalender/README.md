@@ -19,7 +19,7 @@ Dieses IP-Symcon-Modul erstellt einen generischen Abfallkalender, bei dem die Da
 * Die String-Variablen der Abfuhrtermine können selbstverständlich auch von jedem Skript, welches Abfuhrtermine einer Webseite parsed, automatisch "befüllt" werden. Hierbei ist nur wichtig, dass nach jedem Termin ein "New-Line" folgt.  
 
 ## Voraussetzungen
-* IP-Symcon ab Version 4.2
+* IP-Symcon ab Version 5.0
 
 ## Installation
 Über das Modul-Control folgende URL hinzufügen.  
@@ -32,6 +32,10 @@ Hersteller         | Gerät       |
 (dampflok2000)       | Abfallkalender   | 
 
 ## Changelog
+* 1.2.0
+    * Änderung der Schriftfarben für den HTML-Output möglich
+    * Neuer Timer zum Zurücksetzen der Schriftfarbe des "Heute"-Termins
+    * Möglichkeit zur Anzeige des Wochentags im HTML-Output
 * 1.1.0
     * Lokalisation für Englisch und Deutsch hinzugefügt
 * 1.0.0
