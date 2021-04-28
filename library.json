@@ -4,9 +4,9 @@
     "name": "Symcon Modules",
     "url": "https://github.com/dampflok2000/SymconModules",
     "compatibility": {
-        "version": "4.2"
+        "version": "5.0"
     },
-    "version": "1.1",
+    "version": "1.2",
     "build": 0,
     "date": 0
 }
