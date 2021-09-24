@@ -66,11 +66,17 @@
                 $this->SendDebug($ModulName, "Successfully got data from Sonnenbatterie!", 0);
                 $this->SendDebug($ModulName, $json, 0);
                 
+                $USOC_Id = IPS_GetObjectIDByIdent("USOC", $this->InstanceID);
+                $USOC_CurrentVal = GetValueInteger($USOC_Id);
+                If ($USOC_CurrentVal <> $objData->USOC) {
+                    SetValueInteger($USOC_Id,intval($objData->USOC));
+                }
+
                 SetValueInteger(IPS_GetObjectIDByIdent("Consumption", $this->InstanceID),intval($objData->Consumption_W));
                 SetValueInteger(IPS_GetObjectIDByIdent("PAC_total", $this->InstanceID),intval($objData->Pac_total_W));
                 SetValueInteger(IPS_GetObjectIDByIdent("GridFeedIn", $this->InstanceID),intval($objData->GridFeedIn_W));
                 SetValueInteger(IPS_GetObjectIDByIdent("Production", $this->InstanceID),intval($objData->Production_W));
-                SetValueInteger(IPS_GetObjectIDByIdent("USOC", $this->InstanceID),intval($objData->USOC));
+                //SetValueInteger(IPS_GetObjectIDByIdent("USOC", $this->InstanceID),intval($objData->USOC));
                 SetValueBoolean(IPS_GetObjectIDByIdent("BatteryCharging", $this->InstanceID),boolval($objData->BatteryCharging));
                 SetValueBoolean(IPS_GetObjectIDByIdent("BatteryDischarging", $this->InstanceID),boolval($objData->BatteryDischarging));
                 SetValueBoolean(IPS_GetObjectIDByIdent("FlowConsumptionBattery", $this->InstanceID),boolval($objData->FlowConsumptionBattery));
