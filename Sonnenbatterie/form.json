@@ -3,33 +3,33 @@
     [
         {
             "type": "ExpansionPanel",
-            "caption": "Basis-Konfiguration:",
+            "caption": "Basic configuration:",
             "expanded": true,
             "items": [
-                {"type": "Label", "label": "IP-Adresse der Sonenbatterie:"},
-                {"type": "ValidationTextBox", "name": "IPAddress", "caption": "IP-Adresse/Hostname"},
-                {"type": "Label", "label": "Port der Sonenbatterie-Api:"},
+                {"type": "Label", "label": "IP address of the Sonenbatterie:"},
+                {"type": "ValidationTextBox", "name": "IPAddress", "caption": "IP address/Hostname"},
+                {"type": "Label", "label": "Port of Sonnenbatterie Api:"},
                 {"type": "ValidationTextBox", "name": "HostPort", "caption": "Port"},
-                {"type": "Label", "label": "Aktualisierungsintervall in Sekunden:"},
-                {"type": "IntervalBox", "name": "IntervalUpdateTimerSeconds", "caption": "Sek."}
+                {"type": "Label", "label": "Update interval in seconds:"},
+                {"type": "IntervalBox", "name": "IntervalUpdateTimerSeconds", "caption": "Sec."}
             ]
         },
         {
             "type": "ExpansionPanel",
             "caption": "Zu erstellende Variablen:",
             "items": [
-                { "type": "CheckBox", "name": "USOC", "caption": "Ladezustand", "value": true },
-                { "type": "CheckBox", "name": "Consumption", "caption": "Gesamtverbrauch", "value": true }
+                { "type": "CheckBox", "name": "USOC", "caption": "Battery Charge", "value": true },
+                { "type": "CheckBox", "name": "Consumption", "caption": "Total consumption", "value": true }
             ]
         }
     ],
     "actions":
     [
-        {"type": "Button", "label": "Daten holen", "onClick": "SOB_GetData($id);"}
+        {"type": "Button", "label": "Get data", "onClick": "SOB_GetData($id);"}
     ],
     "status":
     [
-        {"code": 102, "icon": "active", "caption": "Successfully got data from the Sonnenbatterie."},
-        {"code": 230, "icon": "error", "caption": "Cannot get data from the Sonnenbatterie!"}
+        {"code": 102, "icon": "active", "caption": "Successfully got data from Sonnenbatterie!"},
+        {"code": 230, "icon": "error", "caption": "Cannot get data from Sonnenbatterie!"}
     ]
 }

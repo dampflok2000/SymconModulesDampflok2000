@@ -1,0 +1,32 @@
+{
+    "translations": {
+        "de": {
+            "i. e. ": "z. B. ",
+            "Battery Charge": "Batterieladung",
+            "Total consumption": "Gesamtverbrauch",
+            "Battery consumption": "Batterieverbrauch",
+            "Power grid feed-in": "Stromnetzeinspeisung",
+            "Power generation": "Stromerzeugung",
+            "Battery is charging": "Batterie wird geladen",
+            "Battery is discharging": "Batterie wird entladen",
+            "flow consumption from battery": "Stromfluss aus Batterie",
+            "Flow from grid": "Stromfluss aus Stromnetz",
+            "Flow from photovoltaics": "Stromfluss aus Photovolataik",
+            "Flow grid to battery": "Stromfluss aus Stromnetz in Batterie",
+            "Flow production to battery": "Stromfluss aus PV in Batterie",
+            "Flow production to grid": "Stromfluss aus PV ins Stromnetz",
+            "System status": "Systemstatus",
+            "Unable to establish a connection to": "Kann keine Verbindung zu folgendem Ziel aufbauen",
+            "Cannot get data from Sonnenbatterie!": "Konnte keine Daten von der Sonnenbatterie holen!",
+            "Successfully got data from Sonnenbatterie!": "Daten erfolgreich von der Sonnebatterie bekommen",
+            "Basic configuration:": "Basis-Konfiguration:",
+            "IP address of the Sonenbatterie:": "IP-Adresse der Sonenbatterie:",
+            "IP address/Hostname": "IP-Adresse/Hostname",
+            "Port of Sonnenbatterie Api:": "Port der Sonenbatterie-Api:",
+            "Update interval in seconds:": "Aktualisierungsintervall in Sekunden:",
+            "Sec.": "Sek.",
+            "Variables to be created:": "Zu erstellende Variablen:",
+            "Get data": "Daten holen"
+        }
+    }
+}

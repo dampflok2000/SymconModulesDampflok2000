@@ -29,21 +29,20 @@
             
 
             //region Register variables:
-            $this->RegisterVariableInteger("USOC", "Batterieladung");
-            $this->RegisterVariableInteger("Consumption", "Gesamtverbrauch");
-            $this->RegisterVariableInteger("PAC_total", "Batterieverbrauch");
-            $this->RegisterVariableInteger("GridFeedIn", "Stromnetzeinspeisung");
-            $this->RegisterVariableInteger("Production", "Stromerzeugung");
-            $this->RegisterVariableBoolean("BatteryCharging", "Batterie wird geladen");
-            $this->RegisterVariableBoolean("BatteryDischarging", "Batterie wird entladen");
-            $this->RegisterVariableBoolean("FlowConsumptionBattery", "Stromfluss aus Batterie");
-            $this->RegisterVariableBoolean("FlowConsumptionGrid", "Stromfluss aus Stromnetz");
-            $this->RegisterVariableBoolean("FlowConsumptionProduction", "Stromfluss aus Photovolataik");
-            $this->RegisterVariableBoolean("FlowGridBattery", "Stromfluss aus Stromnetz in Batterie");
-            $this->RegisterVariableBoolean("FlowProductionBattery", "Stromfluss aus PV in Batterie");
-            $this->RegisterVariableBoolean("FlowProductionGrid", "Stromfluss aus PV ins Stromnetz");
-            $this->RegisterVariableBoolean("FlowProductionBattery", "Stromfluss aus PV in Batterie");
-            $this->RegisterVariableString("SystemStatus", "Systemstatus");
+            $this->RegisterVariableInteger("USOC", $this->Translate("Battery Charge"));
+            $this->RegisterVariableInteger("Consumption", $this->Translate("Total consumption"));
+            $this->RegisterVariableInteger("PAC_total", $this->Translate("Battery consumption"));
+            $this->RegisterVariableInteger("GridFeedIn", $this->Translate("Power grid feed-in"));
+            $this->RegisterVariableInteger("Production", $this->Translate("Power generation"));
+            $this->RegisterVariableBoolean("BatteryCharging", $this->Translate("Battery is charging"));
+            $this->RegisterVariableBoolean("BatteryDischarging", $this->Translate("Battery is discharging"));
+            $this->RegisterVariableBoolean("FlowConsumptionBattery", $this->Translate("flow consumption from battery"));
+            $this->RegisterVariableBoolean("FlowConsumptionGrid", $this->Translate("Flow from grid"));
+            $this->RegisterVariableBoolean("FlowConsumptionProduction", $this->Translate("Flow from photovoltaics"));
+            $this->RegisterVariableBoolean("FlowGridBattery", $this->Translate("Flow grid to battery"));
+            $this->RegisterVariableBoolean("FlowProductionBattery", $this->Translate("Flow production to battery"));
+            $this->RegisterVariableBoolean("FlowProductionGrid", $this->Translate("Flow production to grid"));
+            $this->RegisterVariableString("SystemStatus", $this->Translate("System status"));
             //endregion
         }
  
@@ -60,18 +59,18 @@
             //region Manage Data
             $SOBPingable = Sys_Ping($SOBHostAddress,1000);
             //Exit if ping was not successfully
-            if (!$SOBPingable) {exit("Unable to establish a connection to $SOBHostAddress");}
+            if (!$SOBPingable) {exit($this->Translate("Unable to establish a connection to")." ".$SOBHostAddress);}
             
             $json = Sys_GetURLContent("http://".$SOBHostAddress.":".$SOBHostPort."/api/v1/status");
             if ($json == false) {
                 $this->SetStatus(230);
-                $this->SendDebug($ModulName, "Cannot get data from Sonnenbatterie!", 0);
+                $this->SendDebug($ModulName, $this->Translate("Cannot get data from Sonnenbatterie!"), 0);
                 $this->SendDebug($ModulName, "http://".$SOBHostAddress.":".$SOBHostPort."/api/v1/status", 0);
             }
             else {
                 $objData = json_decode($json);
                 $this->SetStatus(102);
-                $this->SendDebug($ModulName, "Successfully got data from Sonnenbatterie!", 0);
+                $this->SendDebug($ModulName, $this->Translate("Successfully got data from Sonnenbatterie!"), 0);
                 $this->SendDebug($ModulName, $json, 0);
                 
                 //region Get current values
