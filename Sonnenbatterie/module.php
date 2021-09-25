@@ -58,11 +58,11 @@
             //endregion
 
             //region Manage Data
-            $json = Sys_GetURLContent("http://".$SOBHostAddress.":8080/api/v1/status");
+            $json = Sys_GetURLContent("http://".$SOBHostAddress.":".$SOBHostPort."/api/v1/status");
             if ($json == false) {
                 $this->SetStatus(230);
                 $this->SendDebug($ModulName, "Cannot get data from Sonnenbatterie!", 0);
-                $this->SendDebug($ModulName, "http://".$SOBHostAddress.":8080/api/v1/status", 0);
+                $this->SendDebug($ModulName, "http://".$SOBHostAddress.":".$SOBHostPort."/api/v1/status", 0);
             }
             else {
                 $objData = json_decode($json);
