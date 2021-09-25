@@ -12,7 +12,7 @@
 
             $this->RegisterPropertyString("IPAddress","i. e. 192.168.1.25");
             $this->RegisterPropertyString("HostPort","8080");
-            $this->RegisterPropertyInteger("IntervalUpdateTimerSeconds", 0);
+            $this->RegisterPropertyInteger("IntervalUpdateTimerSeconds", 60);
         }
  
         // Überschreibt die intere IPS_ApplyChanges($id) Funktion
