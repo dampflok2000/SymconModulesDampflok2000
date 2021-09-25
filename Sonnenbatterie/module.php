@@ -58,6 +58,10 @@
             //endregion
 
             //region Manage Data
+            $SOBPingable = Sys_Ping($SOBHostAddress,1000);
+            //Exit if ping was not successfully
+            if (!$SOBPingable) {exit("Unable to establish a connection to $SOBHostAddress");}
+            
             $json = Sys_GetURLContent("http://".$SOBHostAddress.":".$SOBHostPort."/api/v1/status");
             if ($json == false) {
                 $this->SetStatus(230);
