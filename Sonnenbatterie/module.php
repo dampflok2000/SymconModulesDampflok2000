@@ -10,7 +10,7 @@
             //Update-Timer erstellen:
             $this->RegisterTimer("TimerGetData", 0, "SOB_GetData(".$this->InstanceID.");");
 
-            $this->RegisterPropertyString("IPAddress","z. B. 192.168.1.25");
+            $this->RegisterPropertyString("IPAddress","i. e. 192.168.1.25");
             $this->RegisterPropertyString("HostPort","8080");
             $this->RegisterPropertyInteger("IntervalUpdateTimerSeconds", 0);
         }
@@ -29,7 +29,7 @@
             
 
             //region Register variables:
-            $this->RegisterVariableInteger("USOC", "Ladezustand");
+            $this->RegisterVariableInteger("USOC", "Batterieladung");
             $this->RegisterVariableInteger("Consumption", "Gesamtverbrauch");
             $this->RegisterVariableInteger("PAC_total", "Batterieverbrauch");
             $this->RegisterVariableInteger("GridFeedIn", "Stromnetzeinspeisung");
