@@ -105,8 +105,8 @@
                 If ($Consumption_W_CurrentVal <> $objData->Consumption_W) {
                     SetValueInteger($Consumption_W_Id,intval($objData->Consumption_W));
                 }
-                If ($PACTotal_CurrentVal <> $objData->Pac_total_W) {
-                    SetValueInteger($PACTotal_Id,intval($objData->Pac_total_W));
+                If ($Pac_total_W_CurrentVal <> $objData->Pac_total_W) {
+                    SetValueInteger($Pac_total_W_Id,intval($objData->Pac_total_W));
                 }
                 If ($GridFeedIn_W_CurrentVal <> $objData->GridFeedIn_W) {
                     SetValueInteger($GridFeedIn_W_Id,intval($objData->GridFeedIn_W));
