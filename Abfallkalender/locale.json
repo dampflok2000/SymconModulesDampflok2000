@@ -25,7 +25,7 @@
             "Minute": "Minute",
             "HTML font size": "HTML-Schriftgröße",
             "Show day of week in HTML output": "Wochentag in HTML-Output anzeigen",
-            "HTML default font color": "Standardfarbe HTML Output",
+            "HTML default font color": "Standardfarbe HTML-Output",
             "HTML pickupday font color for tomorrow": "HTML-Farbe für morgigen Abfuhrtermin",
             "HTML pickupday font color for today": "HTML-Farbe für heutigen Abfuhrtermin",
             "Update Garbage collection appointments": "Update Abfuhrtermine",

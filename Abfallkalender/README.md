@@ -23,7 +23,7 @@ Dieses IP-Symcon-Modul erstellt einen generischen Abfallkalender, bei dem die Da
 * IP-Symcon ab Version 5.0
 
 ## Installation
-Über das Modul-Control folgende URL hinzufügen.  
+Das Modul ist über den Module-Store von IP-Symcon, als auch über das Modul-Control mit folgender URL installierbar.  
 `https://github.com/dampflok2000/SymconModulesDampflok2000`
 
 Anschließend eine neue Instanz erstellen:

@@ -351,13 +351,13 @@
             If ($calTime > 0)
             {
                 $this->SetTimerInterval($TimerName, $calTime * 1000);
-                $this->SendDebug($ModulName, $this->Translate("Seconds for next Timer ") . $TimerName . $this->Translate(" is ") . $calTime . ".", 0);
+                $this->SendDebug($ModulName, $this->Translate("Seconds for next timer ") . $TimerName . $this->Translate(" is ") . $calTime . ".", 0);
             }
             Else
             {
                 $calTime = strtotime("+1 day " . $nextTime);
                 $this->SetTimerInterval($TimerName, (($calTime - $now) * 1000));
-                $this->SendDebug($ModulName, $this->Translate("Next milliseconds for timer ") . $TimerName . $this->Translate(" is ") . (($calTime - $now)), 0);
+                $this->SendDebug($ModulName, $this->Translate("Seconds for next timer ") . $TimerName . $this->Translate(" is ") . (($calTime - $now)), 0);
             }
         }
     }
