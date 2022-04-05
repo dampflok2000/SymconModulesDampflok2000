@@ -16,6 +16,7 @@
             $this->RegisterPropertyBoolean("cbxHM", true);
             $this->RegisterPropertyBoolean("cbxPP", true);
             $this->RegisterPropertyBoolean("cbxBO", false);
+            $this->RegisterPropertyBoolean("cbxPT", false);
             $this->RegisterVariableString("RestTimesHTML", $this->Translate("Waste dates"), "~HTMLBox");
 
             $this->RegisterPropertyInteger("PushInstanceID", 0);
@@ -26,7 +27,7 @@
             $this->RegisterPropertyInteger("IntervalUpdateTimerMinute", 1);
             $this->RegisterPropertyInteger("IntervalHtmlResetColorTodayTimer", 9);
             $this->RegisterPropertyInteger("IntervalNotificationTimerMinute", 50);
-            $this->RegisterPropertyInteger("TableFontSize", 0);
+            $this->RegisterPropertyInteger("TableFontSize", 100);
 
             //HTML Defaults:
             $this->RegisterPropertyInteger("selColHtmlDefault", 16777215);
@@ -73,8 +74,8 @@
             }
             If ($this->ReadPropertyBoolean("cbxGS"))
             {
-                $this->RegisterVariableString("YellowBagTime", $this->Translate("Yellow bag event"));
-                $this->RegisterVariableString("YellowBagTimes", $this->Translate("Yellow bag"), "~TextBox");
+                $this->RegisterVariableString("YellowBagTime", $this->Translate("Packaging waste event"));
+                $this->RegisterVariableString("YellowBagTimes", $this->Translate("Packaging waste"), "~TextBox");
                 $this->EnableAction("YellowBagTimes");
             }
             Else
@@ -115,6 +116,17 @@
             {
                 $this->UnregisterVariable("BioTime");
                 $this->UnregisterVariable("BioTimes");
+            }
+            If ($this->ReadPropertyBoolean("cbxPT"))
+            {
+                $this->RegisterVariableString("PollutantsTime", $this->Translate("Pollutants event"));
+                $this->RegisterVariableString("PollutantsTimes", $this->Translate("Pollutants"), "~TextBox");
+                $this->EnableAction("PollutantsTimes");
+            }
+            Else
+            {
+                $this->UnregisterVariable("PollutantsTimes");
+                $this->UnregisterVariable("PollutantsTime");
             }
         }
 
@@ -189,8 +201,9 @@
             $strHM = @GetValueString(IPS_GetObjectIDByIdent("WasteTimes", $this->InstanceID));
             $strPP = @GetValueString(IPS_GetObjectIDByIdent("PaperTimes", $this->InstanceID));
             $strBO = @GetValueString(IPS_GetObjectIDByIdent("BioTimes", $this->InstanceID));
+            $strPT = @GetValueString(IPS_GetObjectIDByIdent("PollutantsTimes", $this->InstanceID));
             
-            If ((empty($strGS) && $this->ReadPropertyBoolean("cbxGS")) || (empty($strHM) && $this->ReadPropertyBoolean("cbxHM")) || (empty($strPP)) && $this->ReadPropertyBoolean("cbxPP") || (empty($strBO)) && $this->ReadPropertyBoolean("cbxBO"))
+            If ((empty($strGS) && $this->ReadPropertyBoolean("cbxGS")) || (empty($strHM) && $this->ReadPropertyBoolean("cbxHM")) || (empty($strPP)) && $this->ReadPropertyBoolean("cbxPP") || (empty($strBO)) && $this->ReadPropertyBoolean("cbxBO") || (empty($strPT)) && $this->ReadPropertyBoolean("cbxPT"))
             {
                 $this->SetStatus(201);
                 $this->SendDebug($ModulName, "One or more of the waste time strings are empty!", 0);
@@ -206,8 +219,8 @@
 
             If ($this->ReadPropertyBoolean("cbxGS")) {
                 $arrGS = explode("\n", $strGS);
-                $nextTermine[$this->Translate("Yellow bag")] = closest($arrGS, new DateTime('today midnight'));
-                SetValueString(IPS_GetObjectIDByIdent("YellowBagTime", $this->InstanceID), $nextTermine[$this->Translate("Yellow bag")]->format('d.m.Y'));
+                $nextTermine[$this->Translate("Packaging waste")] = closest($arrGS, new DateTime('today midnight'));
+                SetValueString(IPS_GetObjectIDByIdent("YellowBagTime", $this->InstanceID), $nextTermine[$this->Translate("Packaging waste")]->format('d.m.Y'));
             }
             If ($this->ReadPropertyBoolean("cbxHM")) {
                 $arrHM = explode("\n", $strHM);
@@ -224,14 +237,19 @@
                 $nextTermine[$this->Translate("Organic waste")] = closest($arrBO, new DateTime('today midnight'));
                 SetValueString(IPS_GetObjectIDByIdent("BioTime", $this->InstanceID), $nextTermine[$this->Translate("Organic waste")]->format('d.m.Y'));
             }
+            If ($this->ReadPropertyBoolean("cbxPT")) {
+                $arrPT = explode("\n", $strPT);
+                $nextTermine[$this->Translate("Pollutants")] = closest($arrPT, new DateTime('today midnight'));
+                SetValueString(IPS_GetObjectIDByIdent("PollutantsTime", $this->InstanceID), $nextTermine[$this->Translate("Pollutants")]->format('d.m.Y'));
+            }
             
             asort($nextTermine);
 
-            If ($TableFontSize > 0) {
-                $HTMLBox = "<font size='" . $TableFontSize . "'><table cellspacing='10'";
+            If ($TableFontSize != 100) {
+                $HTMLBox = "<table style='border-spacing:10px; font-size:" . $TableFontSize . "%'";
             }
             else {
-                $HTMLBox = "<table cellspacing='10'>";
+                $HTMLBox = "<table style='border-spacing:10px;'>";
             }
             
             foreach ($nextTermine as $key => $value)
@@ -248,7 +266,7 @@
                 If ($days == 1)
                 {
                     $ColorHEX = dechex($this->ReadPropertyInteger("selColHtmlPickupDayTomorrow"));
-                    $HTMLBox.= (($ShowDay) ? ($WasteDayOfWeek."</td><td>") : "") . "<font color=" . $ColorHEX. ">" . $this->Translate("TOMORROW")."</b></td></tr>";
+                    $HTMLBox.= (($ShowDay) ? ($WasteDayOfWeek."</td><td style='color:#" . $ColorHEX . "'>") : "") . $this->Translate("TOMORROW")."</b></td></tr>";
                     If ($PushIsActive)
                     {
                         $this->SendDebug($ModulName, $this->Translate("Push notification is sending now."), 0);
@@ -263,20 +281,15 @@
                 ElseIf ($days == 0)
                 {
                     $ColorHEX = dechex($this->ReadPropertyInteger((($ResetFont) ? "selColHtmlDefault" : "selColHtmlPickupDayToday")));
-                    $HTMLBox.= (($ShowDay) ? ($WasteDayOfWeek."</td><td>") : "") . "<font color=" . $ColorHEX. ">" . $this->Translate("TODAY")."!</b></td></tr>";
+                    $HTMLBox.= (($ShowDay) ? ($WasteDayOfWeek."</td><td style='color:#" . $ColorHEX . "'>") : "") . $this->Translate("TODAY")."!</b></td></tr>";
                 }
                 Else
                 {
                     $ColorHEX = dechex($this->ReadPropertyInteger("selColHtmlDefault"));
-                    $HTMLBox.= (($ShowDay) ? ($WasteDayOfWeek."</td><td>") : "") . "<font color=" . $ColorHEX. ">" . $value->format('d.m.Y') . "</td></tr>";
+                    $HTMLBox.= (($ShowDay) ? ($WasteDayOfWeek."</td><td style='color:#" . $ColorHEX . "'>") : "") . $value->format('d.m.Y') . "</td></tr>";
                 }
             }
-            if ($TableFontSize > 0) {
-                $HTMLBox.= "</table></font>";
-            }
-            else {
-                $HTMLBox.= "</table>";
-            }
+            $HTMLBox.= "</table>";
 
             SetValueString($AbfallTermineHTMLID, $HTMLBox);
 
@@ -292,23 +305,28 @@
         {
             If ($this->ReadPropertyBoolean("cbxGS")) {
                 $varGSID = IPS_GetObjectIDByIdent("YellowBagTimes", $this->InstanceID);
-                SetValueString($varGSID,
-                "04.01.2021\n17.01.2021\n31.01.2021\n14.02.2021\n28.02.2021\n14.03.2021\n28.03.2021\n11.04.2021\n25.04.2021\n09.05.2021\n24.05.2021\n06.06.2021\n20.06.2021\n04.07.2021\n18.07.2021\n01.08.2021\n15.08.2021\n29.08.2021\n12.09.2021\n26.09.2021\n10.10.2021\n24.10.2021\n07.11.2021\n21.11.2021\n05.12.2021\n19.12.2021");
+                $bolVarGS = SetValueString($varGSID,
+                "04.01.2022\n17.01.2022\n31.01.2022\n14.02.2022\n28.02.2022\n14.03.2022\n28.03.2022\n11.04.2022\n25.04.2022\n09.05.2022\n24.05.2022\n06.06.2022\n20.06.2022\n04.07.2022\n18.07.2022\n01.08.2022\n15.08.2022\n29.08.2022\n12.09.2022\n26.09.2022\n10.10.2022\n24.10.2022\n07.11.2022\n21.11.2022\n05.12.2022\n19.12.2022");
             }
             If ($this->ReadPropertyBoolean("cbxHM")) {
                 $varHMID = IPS_GetObjectIDByIdent("WasteTimes", $this->InstanceID);
                 $bolVarHM = SetValueString($varHMID,
-                "03.01.2021\n16.01.2021\n30.01.2021\n13.02.2021\n27.02.2021\n13.03.2021\n27.03.2021\n10.04.2021\n24.04.2021\n08.05.2021\n23.05.2021\n05.06.2021\n19.06.2021\n03.07.2021\n17.07.2021\n31.07.2021\n14.08.2021\n28.08.2021\n11.09.2021\n25.09.2021\n09.10.2021\n23.10.2021\n06.11.2021\n20.11.2021\n04.12.2021\n18.12.2021");
+                "03.01.2022\n16.01.2022\n30.01.2022\n13.02.2022\n27.02.2022\n13.03.2022\n27.03.2022\n10.04.2022\n24.04.2022\n08.05.2022\n23.05.2022\n05.06.2022\n19.06.2022\n03.07.2022\n17.07.2022\n31.07.2022\n14.08.2022\n28.08.2022\n11.09.2022\n25.09.2022\n09.10.2022\n23.10.2022\n06.11.2022\n20.11.2022\n04.12.2022\n18.12.2022");
             }
             If ($this->ReadPropertyBoolean("cbxPP")) {
                 $varPPID = IPS_GetObjectIDByIdent("PaperTimes", $this->InstanceID);
                 $bolVarPP = SetValueString($varPPID,
-                "24.01.2021\n21.02.2021\n21.03.2021\n18.04.2021\n16.05.2021\n13.06.2021\n11.07.2021\n08.08.2021\n05.09.2021\n04.10.2021\n01.11.2021\n28.11.2021\n27.12.2021");
+                "24.01.2022\n21.02.2022\n21.03.2022\n18.04.2022\n16.05.2022\n13.06.2022\n11.07.2022\n08.08.2022\n05.09.2022\n04.10.2022\n01.11.2022\n28.11.2022\n27.12.2022");
             }
             If ($this->ReadPropertyBoolean("cbxBO")) {
                 $varBOID = IPS_GetObjectIDByIdent("BioTimes", $this->InstanceID);
                 $bolVarBO = SetValueString($varBOID,
-                "25.01.2021\n22.02.2021\n22.03.2021\n19.04.2021\n17.05.2021\n14.06.2021\n11.07.2021\n09.08.2021\n06.09.2021\n04.10.2021\n01.11.2021\n27.11.2021\n27.12.2021");
+                "25.01.2022\n22.02.2022\n22.03.2022\n19.04.2022\n17.05.2022\n14.06.2022\n11.07.2022\n09.08.2022\n06.09.2022\n04.10.2022\n01.11.2022\n27.11.2022\n27.12.2022");
+            }
+            If ($this->ReadPropertyBoolean("cbxPT")) {
+                $varPTID = IPS_GetObjectIDByIdent("PollutantsTimes", $this->InstanceID);
+                $bolVarPT = SetValueString($varPTID,
+                "27.02.2022\n26.05.2022\n27.08.2022\n24.11.2022");
             }
             echo $this->Translate("Demo data were successfully stored.");
             $this->SetStatus(102);
@@ -339,7 +357,7 @@
             {
                 $calTime = strtotime("+1 day " . $nextTime);
                 $this->SetTimerInterval($TimerName, (($calTime - $now) * 1000));
-                $this->SendDebug($ModulName, $this->Translate("Next milliseconds for timer ") . $TimerName . $this->Translate(" is ") . (($calTime - $now) * 1000), 0);
+                $this->SendDebug($ModulName, $this->Translate("Next milliseconds for timer ") . $TimerName . $this->Translate(" is ") . (($calTime - $now)), 0);
             }
         }
     }

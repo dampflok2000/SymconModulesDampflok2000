@@ -5,10 +5,11 @@
             "type": "ExpansionPanel", "caption": "Garbage Types",
             "items": [
                 {"type": "Label", "label": "Select garbage type:" },
-                {"type": "CheckBox", "name": "cbxGS", "caption": "Yellow bag" },
+                {"type": "CheckBox", "name": "cbxGS", "caption": "Packaging waste" },
                 {"type": "CheckBox", "name": "cbxHM", "caption": "Household garbage"},
                 {"type": "CheckBox", "name": "cbxPP", "caption": "Cardboard bin"},
-                {"type": "CheckBox", "name": "cbxBO", "caption": "Organic waste"}
+                {"type": "CheckBox", "name": "cbxBO", "caption": "Organic waste"},
+                {"type": "CheckBox", "name": "cbxPT", "caption": "Pollutants"}
             ]
         },
         {
@@ -39,7 +40,7 @@
                    {"type": "IntervalBox", "name": "IntervalHtmlResetColorTodayTimer", "caption": "Hour"}
                  ]   
                 },
-                {"type": "NumberSpinner", "name": "TableFontSize", "caption": "HTML font size", "minimum": 0, "maximum": 24},
+                {"type": "NumberSpinner", "name": "TableFontSize", "caption": "HTML font size", "minimum": 0, "maximum": 600, "suffix": "%"},
                 {"type":"SelectColor", "name":"selColHtmlDefault", "caption":"HTML default font color", "allowTransparent":"False"},
                 {"type":"SelectColor", "name":"selColHtmlPickupDayTomorrow", "caption":"HTML pickupday font color for tomorrow", "allowTransparent":"False"},
                 {"type":"SelectColor", "name":"selColHtmlPickupDayToday", "caption":"HTML pickupday font color for today", "allowTransparent":"False"}
