@@ -225,8 +225,6 @@
                 $nameOfObject = IPS_GetName(IPS_GetObjectIDByIdent($wasteTimesIdent, $this->InstanceID));
                 $nextTermine[$nameOfObject] = closest($arrGS, new DateTime('today midnight'));
                 SetValueString($timesObjectId, $nextTermine[$nameOfObject]->format('d.m.Y'));
-                $nextTermine[$this->Translate("Packaging waste")] = closest($arrGS, new DateTime('today midnight'));
-                SetValueString(IPS_GetObjectIDByIdent("YellowBagTime", $this->InstanceID), $nextTermine[$this->Translate("Packaging waste")]->format('d.m.Y'));
             }
             If ($this->ReadPropertyBoolean("cbxHM")) {
                 $arrHM = explode("\n", $strHM);
