@@ -36,7 +36,7 @@ Hersteller         | Gerät       |
 ## Changelog
 * 1.4.0
     * FIX: Angepasste Farben in der HTML-Box wurden nur beim Anzeigen des Wochentags umgesetzt
-    * NEU: Namen der Variablen der Müllarten werden jetzt auch in demHTML-Output berücksichtigt und bleiben bei Updates/Changes des Moduls erhalten. 
+    * NEU: Namen der Variablen der Müllarten werden jetzt auch in dem HTML-Output berücksichtigt und bleiben bei Updates/Changes des Moduls erhalten. 
 * 1.3.0
     * FIX: HTML-Font-Attribute wurden durch CSS ersetzt. ACHTUNG: Die HTML-Schriftgröße ist ab sofort in Prozent!
     * FIX: Gelber Sack in Verpackungsmüll umbenannt
