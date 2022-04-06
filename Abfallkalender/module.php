@@ -219,34 +219,56 @@
 
             If ($this->ReadPropertyBoolean("cbxGS")) {
                 $arrGS = explode("\n", $strGS);
+                $wasteTimesIdent = "YellowBagTimes";
+                $wasteTimeIdent = "YellowBagTime";
+                $timesObjectId = IPS_GetObjectIDByIdent($wasteTimeIdent, $this->InstanceID);
+                $nameOfObject = IPS_GetName(IPS_GetObjectIDByIdent($wasteTimesIdent, $this->InstanceID));
+                $nextTermine[$nameOfObject] = closest($arrGS, new DateTime('today midnight'));
+                SetValueString($timesObjectId, $nextTermine[$nameOfObject]->format('d.m.Y'));
                 $nextTermine[$this->Translate("Packaging waste")] = closest($arrGS, new DateTime('today midnight'));
                 SetValueString(IPS_GetObjectIDByIdent("YellowBagTime", $this->InstanceID), $nextTermine[$this->Translate("Packaging waste")]->format('d.m.Y'));
             }
             If ($this->ReadPropertyBoolean("cbxHM")) {
                 $arrHM = explode("\n", $strHM);
-                $nextTermine[$this->Translate("Household garbage")] = closest($arrHM, new DateTime('today midnight'));
-                SetValueString(IPS_GetObjectIDByIdent("WasteTime", $this->InstanceID), $nextTermine[$this->Translate("Household garbage")]->format('d.m.Y'));
+                $wasteTimesIdent = "WasteTimes";
+                $wasteTimeIdent = "WasteTime";
+                $timesObjectId = IPS_GetObjectIDByIdent($wasteTimeIdent, $this->InstanceID);
+                $nameOfObject = IPS_GetName(IPS_GetObjectIDByIdent($wasteTimesIdent, $this->InstanceID));
+                $nextTermine[$nameOfObject] = closest($arrHM, new DateTime('today midnight'));
+                SetValueString($timesObjectId, $nextTermine[$nameOfObject]->format('d.m.Y'));
             }
             If ($this->ReadPropertyBoolean("cbxPP")) {
                 $arrPP = explode("\n", $strPP);
-                $nextTermine[$this->Translate("Cardboard bin")] = closest($arrPP, new DateTime('today midnight'));
-                SetValueString(IPS_GetObjectIDByIdent("PaperTime", $this->InstanceID), $nextTermine[$this->Translate("Cardboard bin")]->format('d.m.Y'));
+                $wasteTimesIdent = "PaperTimes";
+                $wasteTimeIdent = "PaperTime";
+                $timesObjectId = IPS_GetObjectIDByIdent($wasteTimeIdent, $this->InstanceID);
+                $nameOfObject = IPS_GetName(IPS_GetObjectIDByIdent($wasteTimesIdent, $this->InstanceID));
+                $nextTermine[$nameOfObject] = closest($arrPP, new DateTime('today midnight'));
+                SetValueString($timesObjectId, $nextTermine[$nameOfObject]->format('d.m.Y'));
             }
             If ($this->ReadPropertyBoolean("cbxBO")) {
                 $arrBO = explode("\n", $strBO);
-                $nextTermine[$this->Translate("Organic waste")] = closest($arrBO, new DateTime('today midnight'));
-                SetValueString(IPS_GetObjectIDByIdent("BioTime", $this->InstanceID), $nextTermine[$this->Translate("Organic waste")]->format('d.m.Y'));
+                $wasteTimesIdent = "BioTimes";
+                $wasteTimeIdent = "BioTime";
+                $timesObjectId = IPS_GetObjectIDByIdent($wasteTimeIdent, $this->InstanceID);
+                $nameOfObject = IPS_GetName(IPS_GetObjectIDByIdent($wasteTimesIdent, $this->InstanceID));
+                $nextTermine[$nameOfObject] = closest($arrBO, new DateTime('today midnight'));
+                SetValueString($timesObjectId, $nextTermine[$nameOfObject]->format('d.m.Y'));
             }
             If ($this->ReadPropertyBoolean("cbxPT")) {
                 $arrPT = explode("\n", $strPT);
-                $nextTermine[$this->Translate("Pollutants")] = closest($arrPT, new DateTime('today midnight'));
-                SetValueString(IPS_GetObjectIDByIdent("PollutantsTime", $this->InstanceID), $nextTermine[$this->Translate("Pollutants")]->format('d.m.Y'));
+                $wasteTimesIdent = "PollutantsTimes";
+                $wasteTimeIdent = "PollutantsTime";
+                $timesObjectId = IPS_GetObjectIDByIdent($wasteTimeIdent, $this->InstanceID);
+                $nameOfObject = IPS_GetName(IPS_GetObjectIDByIdent($wasteTimesIdent, $this->InstanceID));
+                $nextTermine[$nameOfObject] = closest($arrPT, new DateTime('today midnight'));
+                SetValueString($timesObjectId, $nextTermine[$nameOfObject]->format('d.m.Y'));
             }
             
             asort($nextTermine);
 
             If ($TableFontSize != 100) {
-                $HTMLBox = "<table style='border-spacing:10px; font-size:" . $TableFontSize . "%'";
+                $HTMLBox = "<table style='border-spacing:10px; font-size:" . $TableFontSize . "%'>";
             }
             else {
                 $HTMLBox = "<table style='border-spacing:10px;'>";
@@ -260,13 +282,16 @@
                     $WasteDayOfWeek = $this->Translate($value->format('D'));
                 }
                 
-                $HTMLBox.= "<tr><td>".$key . ":</td><td>";
+                $HTMLBox.= "<tr><td>" . $key . ":</td>";
                 $interval = $value->diff($today);
                 $days = $interval->format('%d');
                 If ($days == 1)
                 {
                     $ColorHEX = dechex($this->ReadPropertyInteger("selColHtmlPickupDayTomorrow"));
-                    $HTMLBox.= (($ShowDay) ? ($WasteDayOfWeek."</td><td style='color:#" . $ColorHEX . "'>") : "") . $this->Translate("TOMORROW")."</b></td></tr>";
+                    If ($ShowDay) {
+                        $HTMLBox.= "<td style='color:#" . $ColorHEX . "'>" . $WasteDayOfWeek . "</td><td>";
+                    }
+                    $HTMLBox.= "<td style='color:#" . $ColorHEX . "'>" . $this->Translate("TOMORROW") . "</td></tr>";
                     If ($PushIsActive)
                     {
                         $this->SendDebug($ModulName, $this->Translate("Push notification is sending now."), 0);
@@ -280,13 +305,19 @@
                 }
                 ElseIf ($days == 0)
                 {
-                    $ColorHEX = dechex($this->ReadPropertyInteger((($ResetFont) ? "selColHtmlDefault" : "selColHtmlPickupDayToday")));
-                    $HTMLBox.= (($ShowDay) ? ($WasteDayOfWeek."</td><td style='color:#" . $ColorHEX . "'>") : "") . $this->Translate("TODAY")."!</b></td></tr>";
+                    $ColorHEX = dechex($this->ReadPropertyInteger("selColHtmlPickupDayToday"));
+                    If ($ShowDay) {
+                        $HTMLBox.= "<td style='color:#" . $ColorHEX . "'>" . $WasteDayOfWeek . "</td><td>";
+                    }
+                    $HTMLBox.= "<td style='color:#" . $ColorHEX . "'>" . $this->Translate("TODAY") . "!</td></tr>";
                 }
                 Else
                 {
                     $ColorHEX = dechex($this->ReadPropertyInteger("selColHtmlDefault"));
-                    $HTMLBox.= (($ShowDay) ? ($WasteDayOfWeek."</td><td style='color:#" . $ColorHEX . "'>") : "") . $value->format('d.m.Y') . "</td></tr>";
+                    If ($ShowDay) {
+                        $HTMLBox.= "<td style='color:#" . $ColorHEX . "'>" . $WasteDayOfWeek . "</td><td>";
+                    }
+                    $HTMLBox.= "<td style='color:#" . $ColorHEX . "'>" . $value->format('d.m.Y') . "</td></tr>";
                 }
             }
             $HTMLBox.= "</table>";
