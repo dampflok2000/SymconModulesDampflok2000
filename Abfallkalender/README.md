@@ -17,7 +17,8 @@ Dieses IP-Symcon-Modul erstellt einen generischen Abfallkalender, bei dem die Da
     * Pappe/Papier
     * Biotonne
     * Schadstoffe
-* Die String-Variablen der Abfuhrtermine können selbstverständlich auch von jedem Skript, welches Abfuhrtermine einer Webseite parsed, automatisch "befüllt" werden. Hierbei ist nur wichtig, dass nach jedem Termin ein "New-Line" folgt.  
+* Die String-Variablen der Abfuhrtermine können selbstverständlich auch von jedem Skript, welches Abfuhrtermine einer Webseite parsed, automatisch "befüllt" werden. Hierbei ist nur wichtig, dass nach jedem Termin ein "New-Line" folgt.
+* Die Namen der Müllarten können angepasst werden.
 
 ## Voraussetzungen
 * IP-Symcon ab Version 5.0
@@ -33,6 +34,9 @@ Hersteller         | Gerät       |
 (dampflok2000)       | Abfallkalender   | 
 
 ## Changelog
+* 1.4.0
+    * FIX: Angepasste Farben in der HTML-Box wurden nur beim Anzeigen des Wochentags umgesetzt
+    * NEU: Namen der Variablen der Müllarten werden jetzt auch in demHTML-Output berücksichtigt und bleiben bei Updates/Changes des Moduls erhalten. 
 * 1.3.0
     * FIX: HTML-Font-Attribute wurden durch CSS ersetzt. ACHTUNG: Die HTML-Schriftgröße ist ab sofort in Prozent!
     * FIX: Gelber Sack in Verpackungsmüll umbenannt
