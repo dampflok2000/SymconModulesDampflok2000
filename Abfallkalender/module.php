@@ -137,7 +137,7 @@
         }
 
         //refresh waste times
-        public function UpdateWasteTimes($ResetFont = false)
+        public function UpdateWasteTimes(bool $ResetFont = false)
         {
             $this->SetStatus(102);
             $ModulInfo = IPS_GetInstance($this->InstanceID);
@@ -185,6 +185,7 @@
                 }
                 return end($newDates);
             }
+            //TODO: Implement better logic to get the triggered timer.
             //Check if NotificationTimer was triggered:
             If ($_IPS['SENDER'] == "TimerEvent")
             {
@@ -303,7 +304,13 @@
                 }
                 ElseIf ($days == 0)
                 {
-                    $ColorHEX = dechex($this->ReadPropertyInteger("selColHtmlPickupDayToday"));
+                    //If Color of today should be set to default from ResetFontTimer:
+                    If ($ResetFont) {
+                        $ColorHEX = dechex($this->ReadPropertyInteger("selColHtmlDefault"));
+                    }
+                    else {
+                        $ColorHEX = dechex($this->ReadPropertyInteger("selColHtmlPickupDayToday"));
+                    }
                     If ($ShowDay) {
                         $HTMLBox.= "<td style='color:#" . $ColorHEX . "'>" . $WasteDayOfWeek . "</td><td>";
                     }
