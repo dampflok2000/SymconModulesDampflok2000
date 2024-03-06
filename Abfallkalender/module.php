@@ -283,7 +283,7 @@
                 
                 $HTMLBox.= "<tr><td>" . $key . ":</td>";
                 $interval = $value->diff($today);
-                $days = $interval->format('%d');
+                $days = $interval->format('%a');
                 If ($days == 1)
                 {
                     $ColorHEX = dechex($this->ReadPropertyInteger("selColHtmlPickupDayTomorrow"));
